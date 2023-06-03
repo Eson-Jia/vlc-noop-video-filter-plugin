@@ -9,8 +9,8 @@ RUN apt-get update && \
         p7zip \
         pkg-config \
         wget && \
-    wget https://download.videolan.org/pub/videolan/vlc/3.0.0/win32/vlc-3.0.0-win32.7z -O vlc-3.0.0-win32.7z && \
-    wget https://download.videolan.org/pub/videolan/vlc/3.0.0/win64/vlc-3.0.0-win64.7z -O vlc-3.0.0-win64.7z && \
+    wget https://download.videolan.org/pub/videolan/vlc/3.0.18/win32/vlc-3.0.18-win32.7z -O vlc-3.0.18-win32.7z && \
+    wget https://download.videolan.org/pub/videolan/vlc/3.0.18/win64/vlc-3.0.18-win64.7z -O vlc-3.0.18-win64.7z && \
     7zr x "*.7z" -o* "*/sdk" && \
     rm *.7z && \
     apt-get clean && \

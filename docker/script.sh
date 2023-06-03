@@ -36,10 +36,48 @@ build()
     cd /
 }
 
+build_opencv()
+{
+    VERSION=$1
+    BITS=$2
+
+    if [[ $BITS == "32" ]]
+    then
+        TOOLCHAIN=i686-w64-mingw32
+    elif [[ $BITS == "64" ]]
+    then
+        TOOLCHAIN=x86_64-w64-mingw32
+    fi
+    DESTDIR="/build/$VERSION/$BITS"
+
+    cd /vlc-$VERSION.0-win$BITS/*/sdk
+    sed -i "s|^prefix=.*|prefix=$PWD|g" lib/pkgconfig/*.pc
+    export PKG_CONFIG_PATH="${PWD}/lib/pkgconfig"
+    if [ ! -f lib/vlccore.lib ]
+    then
+        echo "INPUT(libvlccore.lib)" > lib/vlccore.lib
+    fi
+
+    cd /repo
+    make CC=$TOOLCHAIN-gcc LD=$TOOLCHAIN-ld OS=Windows --file Makefile_opencv
+    $TOOLCHAIN-strip libopencv_video_filter_plugin.dll
+
+    mkdir -p $DESTDIR
+    cp libopencv_video_filter_plugin.dll $DESTDIR
+    chmod 777 -R "/build/$VERSION"
+
+    make clean OS=Windows
+
+    cd /
+}
+
+
 if [[ "$1" == "all" ]]
 then
     build 3.0 32
     build 3.0 64
+    build_opencv 3.0 32
+    build_opencv 3.0 64
 else
     VERSION=$1
     BITS=$2
