@@ -38,6 +38,7 @@ build()
 
 build_opencv()
 {
+  echo "Building OpenCV plugin"
     VERSION=$1
     BITS=$2
 
