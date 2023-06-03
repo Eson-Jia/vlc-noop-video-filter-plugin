@@ -15,7 +15,7 @@ build()
     fi
     DESTDIR="/build/$VERSION/$BITS"
 
-    cd /vlc-$VERSION.0-win$BITS/*/sdk
+    cd /vlc-$VERSION.18-win$BITS/*/sdk
     sed -i "s|^prefix=.*|prefix=$PWD|g" lib/pkgconfig/*.pc
     export PKG_CONFIG_PATH="${PWD}/lib/pkgconfig"
     if [ ! -f lib/vlccore.lib ]
@@ -51,7 +51,7 @@ build_opencv()
     fi
     DESTDIR="/build/$VERSION/$BITS"
 
-    cd /vlc-$VERSION.0-win$BITS/*/sdk
+    cd /vlc-$VERSION.18-win$BITS/*/sdk
     sed -i "s|^prefix=.*|prefix=$PWD|g" lib/pkgconfig/*.pc
     export PKG_CONFIG_PATH="${PWD}/lib/pkgconfig"
     if [ ! -f lib/vlccore.lib ]
