@@ -51,7 +51,7 @@ SOURCES = opencv_video_filter.cpp
 
 $(SOURCES:%.c=%.o): %: opencv_video_filter.cpp
 
-libnoop_video_filter_plugin.$(EXT): $(SOURCES:%.c=%.o)
+libopencv_video_filter_plugin.$(EXT): $(SOURCES:%.c=%.o)
 	$(CC) -shared -o $@ $^ $(LDFLAGS)
 
 .PHONY: all install install-strip uninstall clean mostlyclean
