@@ -1,9 +1,9 @@
 LD = ld
-CC = cc
+CC = g++
 OS = Linux
 DESTDIR =
 INSTALL = install
-CFLAGS = -g0 -O3 -Wall -Wextra
+CPPFLAGS = -g0 -O3 -Wall -Wextra
 LDFLAGS =
 VLC_PLUGIN_CFLAGS := $(shell pkg-config --cflags vlc-plugin)
 VLC_PLUGIN_LIBS := $(shell pkg-config --libs vlc-plugin)
@@ -12,10 +12,10 @@ plugindir := $(shell pkg-config vlc-plugin --variable=pluginsdir)
 
 override CC += -std=gnu11
 override CPPFLAGS += -DPIC -I. -Isrc
-override CFLAGS += -fPIC
+override CPPFLAGS += -fPIC
 
 override CPPFLAGS += -DMODULE_STRING=\"opencv_video_filter\"
-override CFLAGS += $(VLC_PLUGIN_CFLAGS)
+override CPPFLAGS += $(VLC_PLUGIN_CFLAGS)
 override LDFLAGS += $(VLC_PLUGIN_LIBS)
 
 ifeq ($(OS),Linux)
@@ -49,9 +49,9 @@ mostlyclean: clean
 
 SOURCES = opencv_video_filter.cpp
 
-$(SOURCES:%.c=%.o): %: opencv_video_filter.cpp
+$(SOURCES:%.cpp=%.o): %: opencv_video_filter.cpp
 
-libopencv_video_filter_plugin.$(EXT): $(SOURCES:%.c=%.o)
+libopencv_video_filter_plugin.$(EXT): $(SOURCES:%.cpp=%.o)
 	$(CC) -shared -o $@ $^ $(LDFLAGS)
 
 .PHONY: all install install-strip uninstall clean mostlyclean
