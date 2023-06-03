@@ -50,7 +50,6 @@ mostlyclean: clean
 SOURCES = opencv_video_filter.cpp
 
 $(SOURCES:%.c=%.o): %: opencv_video_filter.cpp
-    $(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 libnoop_video_filter_plugin.$(EXT): $(SOURCES:%.c=%.o)
 	$(CC) -shared -o $@ $^ $(LDFLAGS)
